@@ -6,7 +6,7 @@ interface ArtRepository {
     suspend fun searchArt(
         searchQuery: String? = null,
         sortedBy: String? = null,
-        currentPage: Int?,
-        pageSize: Int?
+        currentPage: Int? = null,
+        pageSize: Int? = null
     ): ArtApiResponse
 }

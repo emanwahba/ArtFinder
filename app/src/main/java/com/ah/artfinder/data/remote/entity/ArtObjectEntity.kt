@@ -38,5 +38,5 @@ data class ArtObjectEntity(
     val title: String,
 
     @SerializedName("webImage")
-    val webImage: WebImageEntity
+    val webImage: WebImageEntity?
 )
