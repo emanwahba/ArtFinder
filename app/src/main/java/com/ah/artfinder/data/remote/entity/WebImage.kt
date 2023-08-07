@@ -2,7 +2,7 @@ package com.ah.artfinder.data.remote.entity
 
 import com.google.gson.annotations.SerializedName
 
-data class WebImageEntity(
+data class WebImage(
 
     @SerializedName("guid")
     val guid: String,

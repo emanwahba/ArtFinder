@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">ArtFinder</string>
+    <string name="artist">Artist:&#160;</string>
+    <string name="material">Material:&#160;</string>
+    <string name="location">Location:&#160;</string>
+    <string name="description">Description:&#160;</string>
 </resources>

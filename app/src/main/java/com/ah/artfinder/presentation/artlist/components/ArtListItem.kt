@@ -27,17 +27,17 @@ import androidx.compose.ui.unit.sp
 import coil.compose.SubcomposeAsyncImage
 import coil.request.ImageRequest
 import com.ah.artfinder.R
-import com.ah.artfinder.domain.model.ArtObject
+import com.ah.artfinder.domain.model.Art
 
 @Composable
 fun ArtListItem(
-    artObject: ArtObject,
-    onItemClick: (ArtObject) -> Unit,
+    art: Art,
+    onItemClick: (Art) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Box(
         modifier = modifier
-            .clickable { onItemClick(artObject) }
+            .clickable { onItemClick(art) }
             .shadow(5.dp, RoundedCornerShape(10.dp))
             .clip(RoundedCornerShape(10.dp))
             .aspectRatio(1f)
@@ -47,13 +47,13 @@ fun ArtListItem(
     ) {
         Column {
             ListItemImage(
-                title = artObject.longTitle,
-                imageUrl = artObject.imageUrl,
+                title = art.longTitle,
+                imageUrl = art.imageUrl,
                 modifier = Modifier.weight(0.75f)
             )
             Spacer(modifier = Modifier.padding(8.dp))
             ListItemTitle(
-                title = artObject.title,
+                title = art.title,
                 modifier = Modifier.weight(0.25f)
             )
         }

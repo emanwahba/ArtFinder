@@ -24,14 +24,14 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.ah.artfinder.domain.model.ArtObject
+import com.ah.artfinder.domain.model.Art
 import com.ah.artfinder.presentation.artlist.components.ArtListItem
 import com.ah.artfinder.presentation.artlist.components.SearchBar
 
 @Composable
 fun ArtListScreen(
-    navigateToArtDetailsScreen: (ArtObject) -> Unit,
-    viewModel: ArtListViewModel = hiltViewModel()
+    viewModel: ArtListViewModel = hiltViewModel(),
+    navigateToArtDetailsScreen: (String) -> Unit
 ) {
     val state = viewModel.state.value
 
@@ -43,7 +43,7 @@ fun ArtListScreen(
             Spacer(modifier = Modifier.height(20.dp))
             SearchBar(
                 text = viewModel.searchTerm.value,
-                hint = "Search...",
+                hint = "Search art",
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(16.dp)
@@ -51,7 +51,7 @@ fun ArtListScreen(
                 viewModel.searchArt(it)
             }
             ArtGrid(
-                artObjects = state.artObjects,
+                artMapGroupedByArtist = state.artMap,
                 navigateToArtDetailsScreen = navigateToArtDetailsScreen
             )
         }
@@ -84,8 +84,8 @@ fun ArtListScreen(
 
 @Composable
 fun ArtGrid(
-    artObjects: Map<String, List<ArtObject>>,
-    navigateToArtDetailsScreen: (ArtObject) -> Unit,
+    artMapGroupedByArtist: Map<String, List<Art>>,
+    navigateToArtDetailsScreen: (String) -> Unit,
 ) {
 
     LazyVerticalGrid(
@@ -95,7 +95,7 @@ fun ArtGrid(
         verticalArrangement = Arrangement.spacedBy(24.dp),
         horizontalArrangement = Arrangement.spacedBy(24.dp)
     ) {
-        artObjects.forEach { (artist, artList) ->
+        artMapGroupedByArtist.forEach { (artist, artList) ->
 
             item(span = { GridItemSpan(maxLineSpan) })
             {
@@ -109,9 +109,9 @@ fun ArtGrid(
 
             items(artList.size) { index ->
                 ArtListItem(
-                    artObject = artList[index],
+                    art = artList[index],
                     onItemClick = {
-                        navigateToArtDetailsScreen(artList[index])
+                        navigateToArtDetailsScreen(artList[index].objectNumber)
                     }
                 )
             }

@@ -1,7 +1,7 @@
 package com.ah.artfinder.domain.usecase
 
 import com.ah.artfinder.data.SortedBy
-import com.ah.artfinder.domain.model.ArtObject
+import com.ah.artfinder.domain.model.Art
 import com.ah.artfinder.domain.usecase.dao.SearchArt
 import com.ah.artfinder.util.NetworkResult
 import kotlinx.coroutines.flow.Flow
@@ -14,7 +14,7 @@ class SearchArtSortedByArtist @Inject constructor(
         searchQuery: String? = null,
         currentPage: Int? = null,
         pageSize: Int? = null
-    ): Flow<NetworkResult<List<ArtObject>>> {
+    ): Flow<NetworkResult<List<Art>>> {
         return searchArt.search(searchQuery, SortedBy.ARTIST.value, currentPage, pageSize)
     }
 }

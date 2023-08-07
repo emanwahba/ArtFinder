@@ -33,8 +33,8 @@ class ArtListViewModel @Inject constructor(
         searchArtUseCase(searchQuery = text, pageSize = 20).onEach { result ->
             when (result) {
                 is NetworkResult.Success -> {
-                    val artObjectsGrouped = result.data?.groupBy { it.artist }
-                    _state.value = ArtListState(artObjects = artObjectsGrouped ?: emptyMap())
+                    val artMapGroupedByArtist = result.data?.groupBy { it.artist }
+                    _state.value = ArtListState(artMap = artMapGroupedByArtist ?: emptyMap())
                 }
 
                 is NetworkResult.Error -> {
