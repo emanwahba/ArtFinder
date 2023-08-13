@@ -29,8 +29,6 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
-import androidx.compose.ui.text.SpanStyle
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -39,6 +37,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.SubcomposeAsyncImage
 import coil.request.ImageRequest
 import com.ah.artfinder.R
+import com.ah.artfinder.presentation.common.boldText
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -75,7 +74,7 @@ fun ArtDetailsScreen(
                             Text(
                                 text = AnnotatedString(
                                     text = stringResource(id = R.string.artist) + artDetails.artist,
-                                    spanStyles = boldToText(stringResource(id = R.string.artist))
+                                    spanStyles = boldText(stringResource(id = R.string.artist))
                                 )
                             )
                         }
@@ -84,7 +83,7 @@ fun ArtDetailsScreen(
                             Text(
                                 text = AnnotatedString(
                                     text = stringResource(id = R.string.material) + artDetails.materials,
-                                    spanStyles = boldToText(stringResource(id = R.string.material))
+                                    spanStyles = boldText(stringResource(id = R.string.material))
                                 )
                             )
                         }
@@ -93,7 +92,7 @@ fun ArtDetailsScreen(
                             Text(
                                 text = AnnotatedString(
                                     text = stringResource(id = R.string.location) + artDetails.location,
-                                    spanStyles = boldToText(stringResource(id = R.string.location))
+                                    spanStyles = boldText(stringResource(id = R.string.location))
                                 )
                             )
                         }
@@ -102,7 +101,7 @@ fun ArtDetailsScreen(
                             Text(
                                 text = AnnotatedString(
                                     text = stringResource(id = R.string.description) + artDetails.description,
-                                    spanStyles = boldToText(stringResource(id = R.string.description))
+                                    spanStyles = boldText(stringResource(id = R.string.description))
                                 )
                             )
                         }
@@ -172,7 +171,7 @@ fun DetailsImage(
         contentAlignment = Alignment.Center, modifier = modifier
     ) {
         SubcomposeAsyncImage(model = ImageRequest.Builder(LocalContext.current).data(imageUrl)
-            .fallback(R.drawable.image_not_supported).build(),
+            .build(),
             contentDescription = title,
             contentScale = ContentScale.Fit,
             modifier = Modifier.fillMaxWidth(),
@@ -184,12 +183,3 @@ fun DetailsImage(
         )
     }
 }
-
-@Composable
-private fun boldToText(text: String) = listOf(
-    AnnotatedString.Range(
-        SpanStyle(fontWeight = FontWeight.Bold),
-        start = 0,
-        end = text.length
-    )
-)

@@ -28,7 +28,7 @@ class ArtDetailsViewModel @Inject constructor(
         }
     }
 
-    fun getDetails(id: String) {
+    private fun getDetails(id: String) {
 
         getArtDetailsUseCase(id = id).onEach { result ->
             when (result) {

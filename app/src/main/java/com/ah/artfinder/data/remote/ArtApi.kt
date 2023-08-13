@@ -16,7 +16,7 @@ interface ArtApi {
     suspend fun searchArt(
         @Query("q") searchQuery: String?,
         @Query("s") sortedBy: String?,
-        @Query("p") currentPage: Int?, // Page number [0-n] default 0
+        @Query("p") pageNumber: Int?, // [0-n] default 0
         @Query("ps") pageSize: Int?, // The number of results per page [1-100] default 10
     ): ArtApiResponse
 
@@ -25,4 +25,8 @@ interface ArtApi {
     suspend fun getArtDetails(
         @Path("id") id: String
     ): ArtDetailsApiResponse
+
+    companion object {
+        const val FIRST_PAGE_INDEX = 0
+    }
 }

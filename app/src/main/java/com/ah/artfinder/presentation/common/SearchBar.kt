@@ -1,4 +1,4 @@
-package com.ah.artfinder.presentation.artlist.components
+package com.ah.artfinder.presentation.common
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -7,7 +7,11 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material3.Text
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.focus.onFocusChanged
@@ -36,22 +40,6 @@ fun SearchBar(
             onValueChange = {
                 onSearch(it)
             },
-//            trailingIcon = {
-//                AnimatedVisibility(
-//                    visible = showClearButton,
-//                    enter = fadeIn(),
-//                    exit = fadeOut()
-//                ) {
-//                    IconButton(onClick = {
-////                        onClearClick()
-//                    }) {
-//                        Icon(
-//                            imageVector = Icons.Filled.Close,
-//                            contentDescription = null)
-//                    }
-//
-//                }
-//            },
             maxLines = 1,
             singleLine = true,
             textStyle = TextStyle(color = Color.Black),
@@ -65,7 +53,7 @@ fun SearchBar(
                     showClearButton = (it.isFocused)
                 },
 
-        )
+            )
         if (isHintDisplayed) {
             Text(
                 text = hint,
@@ -74,18 +62,5 @@ fun SearchBar(
                     .padding(horizontal = 20.dp, vertical = 12.dp)
             )
         }
-
-//        if (text.isNotEmpty()) {
-//            IconButton(onClick = { onSearch("") }) {
-//                Icon(imageVector = Icons.Filled.Clear,
-//                    contentDescription = null,
-//                modifier = Modifier
-//                    .fillMaxWidth()
-//                    .padding(horizontal = 20.dp, vertical = 12.dp)
-//                    .align(Alignment.End))
-//            }
-//        }
-
-
     }
 }

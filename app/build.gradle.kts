@@ -1,8 +1,8 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
-    id ("com.google.dagger.hilt.android")
-    id ("kotlin-kapt")
+    id("com.google.dagger.hilt.android")
+    id("kotlin-kapt")
 }
 
 android {
@@ -74,7 +74,7 @@ dependencies {
     // Coil - Image Loader library
     implementation("io.coil-kt:coil-compose:2.4.0")
 
-    //Dagger - Hilt
+    // Dagger - Hilt
     val daggerHiltVersion = "2.47"
     implementation("com.google.dagger:hilt-android:$daggerHiltVersion")
     kapt("com.google.dagger:hilt-android-compiler:$daggerHiltVersion")
@@ -82,4 +82,8 @@ dependencies {
 
     // Compose Navigation
     implementation("androidx.navigation:navigation-compose:2.6.0")
+
+    // Paging
+    implementation("androidx.paging:paging-runtime-ktx:3.2.0")
+    implementation("androidx.paging:paging-compose:3.2.0")
 }
