@@ -16,6 +16,8 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
+const val DEFAULT_PAGE_SIZE = 20
+
 @HiltViewModel
 class ArtListViewModel @Inject constructor(
     private val searchArtUseCase: SearchArtSortedByArtist,
@@ -30,11 +32,11 @@ class ArtListViewModel @Inject constructor(
         searchArt()
     }
 
-    fun searchArt(text: String? = null) {
+    fun searchArt(text: String? = null, pageSize: Int? = DEFAULT_PAGE_SIZE) {
 
         text?.let { _query.value = it }
 
-        pagingData = searchArtUseCase(searchQuery = text, pageSize = 20)
+        pagingData = searchArtUseCase(searchQuery = text, pageSize = pageSize)
             .map { pagingData: PagingData<Art> ->
                 pagingData.map { art ->
                     ArtListUiModel.ArtModel(art)

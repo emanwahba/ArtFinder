@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
-class SearchArt @Inject constructor(
+class ArtDao @Inject constructor(
     private val repository: ArtRepository
 ) {
     fun search(
