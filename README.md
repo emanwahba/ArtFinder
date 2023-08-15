@@ -1,30 +1,32 @@
 # Art Finder
 
-This application gets all it's data from Rijks museum API and displayed in a grid grouped by artist name. When user click on an art item, he can see details view with more infromation about the art piece.
-https://data.rijksmuseum.nl/object-metadata/api/
+This application gets all it's data from [Rijks museum API](https://data.rijksmuseum.nl/object-metadata/api/) and displayed in a grid grouped by artist name. When user click on an art item, he can see details view with more information about that art piece.
 
-Features:
+# Features:
+
 1. Grouped grid of art pieces by artist name.
 2. Paging of grid data.
 3. Generic search for an art piece.
+4. Details of art piece.
 
-Different components/libraries used in the project
-Clean Architecture This app is structured using single module clean architecture
+# Different components/libraries used in the project
 
-Jetpack Compose For creating the screens
+* **Clean Architecture** This app is structured using single module clean architecture
 
-Compose navigation For navigation in the app
+* **Jetpack Compose** For creating the screens
 
-Paging 3 For achieving pagination
+* **Compose navigation** For navigation in the app
 
-ViewModel The presentation layer uses the viewmodel pattern
+* **Paging 3** For achieving pagination
 
-Hilt For dependency injection
+* **ViewModel** The presentation layer uses the viewmodel pattern
 
-Coil For displaying images
+* **Hilt** For dependency injection
 
-Coroutines For handling async work
+* **Coil** For displaying images
 
-Retrofit For networking tasks
+* **Coroutines** For handling async work
 
-Mockk For mocking dependencies during testing
+* **Retrofit** For networking tasks
+
+* **Mockk** For mocking dependencies during testing
