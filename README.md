@@ -1,6 +1,8 @@
 # Art Finder
 
-This application gets all it's data from [Rijks museum API](https://data.rijksmuseum.nl/object-metadata/api/) and displays it in a grid grouped by artist name. When user click on an art item, he can see details view with more information about that art piece.
+Simple app showing art pieces from Rijks museum. UI is made by Jetpack Compose and Clean Architecture.
+
+It gets its data from [Rijks museum API](https://data.rijksmuseum.nl/object-metadata/api/) and displays it in a grid grouped by artist name. When clicking on an art item, details view is displayed with more information about that art piece.
 
 # Features:
 
