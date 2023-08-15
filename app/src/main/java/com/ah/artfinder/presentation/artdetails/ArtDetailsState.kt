@@ -5,5 +5,5 @@ import com.ah.artfinder.domain.model.ArtDetails
 data class ArtDetailsState(
     val isLoading: Boolean = false,
     var artDetails: ArtDetails? = null,
-    val error: String = ""
+    val error: String? = ""
 )

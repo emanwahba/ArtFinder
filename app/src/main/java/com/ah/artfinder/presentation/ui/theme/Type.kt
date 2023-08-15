@@ -1,4 +1,4 @@
-package com.ah.artfinder.ui.theme
+package com.ah.artfinder.presentation.ui.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle

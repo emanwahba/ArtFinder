@@ -10,16 +10,19 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
 
 @Composable
-fun LoadingUi() {
+fun LoadingUi(
+    modifier: Modifier = Modifier,
+    scale: Float
+) {
     Box(
-        modifier = Modifier.fillMaxSize(),
+        modifier = modifier.fillMaxSize(),
         contentAlignment = Alignment.Center,
     ) {
         CircularProgressIndicator(
             color = MaterialTheme.colorScheme.secondary,
             modifier = Modifier
                 .align(Alignment.Center)
-                .scale(1.5f)
+                .scale(scale)
         )
     }
 }

@@ -22,13 +22,17 @@ class ArtDetailsViewModel @Inject constructor(
     private val _state = mutableStateOf(ArtDetailsState())
     val state: State<ArtDetailsState> = _state
 
+    private val _artId = mutableStateOf(String())
+    val artId: State<String> = _artId
+
     init {
         savedStateHandle.get<String>(ScreenParameter.ArtId.key)?.let { artId ->
+            _artId.value = artId
             getDetails(artId)
         }
     }
 
-    private fun getDetails(id: String) {
+    fun getDetails(id: String) {
 
         getArtDetailsUseCase(id = id).onEach { result ->
             when (result) {
@@ -40,7 +44,7 @@ class ArtDetailsViewModel @Inject constructor(
 
                 is NetworkResult.Error -> {
                     _state.value = ArtDetailsState(
-                        error = result.message ?: "An unexpected error occurred"
+                        error = result.message
                     )
                 }
 

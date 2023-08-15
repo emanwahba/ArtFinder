@@ -18,7 +18,6 @@ class ArtRepositoryImpl @Inject constructor(
         sortedBy: String?,
         pageSize: Int,
     ): Flow<PagingData<ArtEntity>> {
-
         return Pager(
             config = PagingConfig(
                 pageSize = pageSize,

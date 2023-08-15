@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="list_screen_spacer_height">20dp</dimen>
+    <dimen name="search_bar_padding">16dp</dimen>
+    <dimen name="grid_cells_minimum_size">150dp</dimen>
+    <dimen name="grid_vertical_arrangement">24dp</dimen>
+    <dimen name="grid_horizontal_arrangement">24dp</dimen>
+    <dimen name="grid_content_padding">24dp</dimen>
+    <dimen name="grid_content_padding_top">8dp</dimen>
+    <dimen name="grid_header_padding_top">16dp</dimen>
+    <dimen name="grid_item_elevation">6dp</dimen>
+    <dimen name="grid_item_rounded_corner">10dp</dimen>
+    <dimen name="grid_item_spacer_padding">8dp</dimen>
+    <dimen name="grid_item_title_horizontal_padding">16dp</dimen>
+    <dimen name="details_column_padding">16dp</dimen>
+    <dimen name="details_spacer_padding">6dp</dimen>
+    <dimen name="details_top_section_padding">12dp</dimen>
+    <dimen name="details_back_arrow_size">36dp</dimen>
+    <dimen name="details_title_horizontal_padding">12dp</dimen>
+    <dimen name="error_ui_text_horizontal_padding">16dp</dimen>
+    <dimen name="error_ui_spacer_height">10dp</dimen>
+    <dimen name="error_ui_button_corner">4dp</dimen>
+    <dimen name="search_bar_shadow">6dp</dimen>
+    <dimen name="search_bar_horizontal_padding">20dp</dimen>
+    <dimen name="search_bar_vertical_padding">12dp</dimen>
+    <dimen name="gris_paging_load_more_padding">12dp</dimen>
+
+    <dimen name="grid_item_title_font_size">12sp</dimen>
+    <dimen name="details_title_font_size">20sp</dimen>
+    <dimen name="error_ui_font_size">18sp</dimen>
+</resources>

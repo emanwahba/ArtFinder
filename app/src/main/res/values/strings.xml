@@ -1,8 +1,11 @@
 <resources>
     <string name="app_name">ArtFinder</string>
+    <string name="searchArt">Search art</string>
     <string name="artist">Artist:&#160;</string>
     <string name="material">Material:&#160;</string>
     <string name="location">Location:&#160;</string>
     <string name="description">Description:&#160;</string>
     <string name="retry">Retry</string>
+    <string name="no_data_found">No data found!</string>
+    <string name="no_internet_connection">Couldn\'t reach server. Check your internet connection!</string>
 </resources>

@@ -1,6 +1,5 @@
 package com.ah.artfinder.domain.usecase
 
-import android.util.Log
 import com.ah.artfinder.data.repository.ArtRepository
 import com.ah.artfinder.domain.mapper.toArtDetails
 import com.ah.artfinder.domain.model.ArtDetails
@@ -25,10 +24,9 @@ class GetArtDetails @Inject constructor(
             emit(NetworkResult.Success(artDetails))
 
         } catch (e: HttpException) {
-            emit(NetworkResult.Error(e.localizedMessage ?: "An unexpected error occurred"))
+            emit(NetworkResult.Error(e.localizedMessage ?: "An unexpected error occurred!"))
         } catch (e: IOException) {
-            e.message?.let { Log.d("NetworkResult", it) }
-            emit(NetworkResult.Error("Couldn't reach server. Check your internet connection."))
+            emit(NetworkResult.Error("Couldn't reach server. Check your internet connection!"))
         }
     }
 }

@@ -16,8 +16,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.unit.dp
+import com.ah.artfinder.R
 
 @Composable
 fun SearchBar(
@@ -45,9 +46,12 @@ fun SearchBar(
             textStyle = TextStyle(color = Color.Black),
             modifier = Modifier
                 .fillMaxWidth()
-                .shadow(5.dp, CircleShape)
+                .shadow(dimensionResource(R.dimen.search_bar_shadow), CircleShape)
                 .background(Color.White, CircleShape)
-                .padding(horizontal = 20.dp, vertical = 12.dp)
+                .padding(
+                    horizontal = dimensionResource(R.dimen.search_bar_horizontal_padding),
+                    vertical = dimensionResource(R.dimen.search_bar_vertical_padding)
+                )
                 .onFocusChanged {
                     isHintDisplayed = !it.isFocused && text.isEmpty()
                     showClearButton = (it.isFocused)
@@ -59,7 +63,10 @@ fun SearchBar(
                 text = hint,
                 color = Color.Gray,
                 modifier = Modifier
-                    .padding(horizontal = 20.dp, vertical = 12.dp)
+                    .padding(
+                        horizontal = dimensionResource(R.dimen.search_bar_horizontal_padding),
+                        vertical = dimensionResource(R.dimen.search_bar_vertical_padding)
+                    )
             )
         }
     }

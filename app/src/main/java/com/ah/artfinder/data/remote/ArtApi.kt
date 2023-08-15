@@ -11,7 +11,6 @@ private const val API_KEY = "0fiuZFh4"
 
 interface ArtApi {
 
-    // https://www.rijksmuseum.nl/api/nl/collection?key=[api-key]
     @GET("api/en/collection?key=$API_KEY")
     suspend fun searchArt(
         @Query("q") searchQuery: String?,
@@ -20,7 +19,6 @@ interface ArtApi {
         @Query("ps") pageSize: Int?, // The number of results per page [1-100] default 10
     ): ArtApiResponse
 
-    // https://www.rijksmuseum.nl/api/nl/collection/SK-C-5?key=[api-key]
     @GET("api/en/collection/{id}?key=$API_KEY")
     suspend fun getArtDetails(
         @Path("id") id: String

@@ -27,16 +27,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.SubcomposeAsyncImage
 import coil.request.ImageRequest
 import com.ah.artfinder.R
+import com.ah.artfinder.presentation.common.ErrorUi
+import com.ah.artfinder.presentation.common.LoadingUi
 import com.ah.artfinder.presentation.common.boldText
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -61,13 +63,12 @@ fun ArtDetailsScreen(
 
                 item {
                     DetailsImage(
-                        title = artDetails.title,
-                        imageUrl = artDetails.imageUrl
+                        title = artDetails.title, imageUrl = artDetails.imageUrl
                     )
                     Column(
                         Modifier
                             .fillMaxHeight()
-                            .padding(all = 16.dp),
+                            .padding(all = dimensionResource(R.dimen.details_column_padding)),
                         verticalArrangement = Arrangement.SpaceBetween
                     ) {
                         artDetails.artist?.let {
@@ -79,7 +80,7 @@ fun ArtDetailsScreen(
                             )
                         }
                         artDetails.materials?.let {
-                            Spacer(modifier = Modifier.padding(5.dp))
+                            Spacer(modifier = Modifier.padding(dimensionResource(R.dimen.details_spacer_padding)))
                             Text(
                                 text = AnnotatedString(
                                     text = stringResource(id = R.string.material) + artDetails.materials,
@@ -88,7 +89,7 @@ fun ArtDetailsScreen(
                             )
                         }
                         artDetails.location?.let {
-                            Spacer(modifier = Modifier.padding(5.dp))
+                            Spacer(modifier = Modifier.padding(dimensionResource(R.dimen.details_spacer_padding)))
                             Text(
                                 text = AnnotatedString(
                                     text = stringResource(id = R.string.location) + artDetails.location,
@@ -97,7 +98,7 @@ fun ArtDetailsScreen(
                             )
                         }
                         artDetails.description?.let {
-                            Spacer(modifier = Modifier.padding(5.dp))
+                            Spacer(modifier = Modifier.padding(dimensionResource(R.dimen.details_spacer_padding)))
                             Text(
                                 text = AnnotatedString(
                                     text = stringResource(id = R.string.description) + artDetails.description,
@@ -109,6 +110,16 @@ fun ArtDetailsScreen(
 
                 }
             }
+        }
+
+        if (state.isLoading) {
+            LoadingUi(scale = 1.2f)
+        }
+        if (!state.error.isNullOrEmpty()) {
+            ErrorUi(
+                message = state.error,
+                refresh = { viewModel.getDetails(viewModel.artId.value) }
+            )
         }
     }
 }
@@ -126,18 +137,17 @@ fun TopSection(
         Row(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(all = 12.dp),
+                .padding(all = dimensionResource(R.dimen.details_top_section_padding)),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Icon(imageVector = Icons.Default.ArrowBack,
                 contentDescription = null,
                 modifier = Modifier
-                    .size(36.dp)
+                    .size(dimensionResource(R.dimen.details_back_arrow_size))
                     .clickable {
                         navigateBack()
-                    }
-            )
+                    })
             DetailsTitle(
                 title = title
             )
@@ -151,26 +161,29 @@ fun DetailsTitle(
 ) {
     Text(
         text = title,
-        fontSize = 20.sp,
+        fontSize = with(LocalDensity.current) {
+            dimensionResource(R.dimen.details_title_font_size).toSp()
+        },
         maxLines = 2,
         overflow = TextOverflow.Ellipsis,
         textAlign = TextAlign.Start,
         modifier = modifier
             .fillMaxWidth()
-            .padding(horizontal = 12.dp)
+            .padding(horizontal = dimensionResource(R.dimen.details_title_horizontal_padding))
     )
 }
 
 @Composable
 fun DetailsImage(
-    title: String,
-    imageUrl: String?,
-    modifier: Modifier = Modifier
+    title: String, imageUrl: String?, modifier: Modifier = Modifier
 ) {
     Box(
-        contentAlignment = Alignment.Center, modifier = modifier
+        contentAlignment = Alignment.Center,
+        modifier = modifier,
     ) {
-        SubcomposeAsyncImage(model = ImageRequest.Builder(LocalContext.current).data(imageUrl)
+        SubcomposeAsyncImage(model = ImageRequest.Builder(LocalContext.current)
+            .data(imageUrl)
+            .fallback(R.drawable.image_not_available)
             .build(),
             contentDescription = title,
             contentScale = ContentScale.Fit,
@@ -179,7 +192,6 @@ fun DetailsImage(
                 CircularProgressIndicator(
                     modifier = Modifier.scale(0.3f)
                 )
-            }
-        )
+            })
     }
 }

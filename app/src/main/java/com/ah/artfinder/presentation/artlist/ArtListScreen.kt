@@ -16,19 +16,23 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.dimensionResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemKey
+import com.ah.artfinder.R
 import com.ah.artfinder.presentation.artlist.components.ArtListItem
 import com.ah.artfinder.presentation.artlist.model.ArtListUiModel
 import com.ah.artfinder.presentation.common.ErrorUi
 import com.ah.artfinder.presentation.common.LoadingUi
 import com.ah.artfinder.presentation.common.SearchBar
+
+const val GRID_ITEM_SPAN = 1
 
 @Composable
 fun ArtListScreen(
@@ -40,13 +44,13 @@ fun ArtListScreen(
         modifier = Modifier.fillMaxSize()
     ) {
         Column {
-            Spacer(modifier = Modifier.height(20.dp))
+            Spacer(modifier = Modifier.height(dimensionResource(R.dimen.list_screen_spacer_height)))
             SearchBar(
                 text = viewModel.query.value,
-                hint = "Search art",
+                hint = stringResource(id = R.string.searchArt),
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(16.dp)
+                    .padding(dimensionResource(R.dimen.search_bar_padding))
             ) {
                 viewModel.searchArt(it)
             }
@@ -58,7 +62,6 @@ fun ArtListScreen(
     }
 }
 
-
 @Composable
 fun ArtPagingData(
     viewModel: ArtListViewModel = hiltViewModel(),
@@ -68,13 +71,13 @@ fun ArtPagingData(
 
     when (pagingData.loadState.refresh) {
         is LoadState.Loading -> {
-            LoadingUi()
+            LoadingUi(scale = 1.2f)
         }
 
         is LoadState.Error -> {
             val message =
                 (pagingData.loadState.append as? LoadState.Error)?.error?.message
-                    ?: return
+                    ?: stringResource(R.string.no_internet_connection)
 
             ErrorUi(
                 message = message,
@@ -83,7 +86,13 @@ fun ArtPagingData(
         }
 
         else -> {
-            ArtGrid(pagingData, navigateToArtDetailsScreen)
+            if (pagingData.itemCount == 0) {
+                ErrorUi(
+                    message = stringResource(R.string.no_data_found)
+                )
+            } else {
+                ArtGrid(pagingData, navigateToArtDetailsScreen)
+            }
         }
     }
 }
@@ -94,16 +103,16 @@ private fun ArtGrid(
     navigateToArtDetailsScreen: (String) -> Unit
 ) {
     LazyVerticalGrid(
-        columns = GridCells.Adaptive(minSize = 150.dp),
+        columns = GridCells.Adaptive(minSize = dimensionResource(R.dimen.grid_cells_minimum_size)),
         modifier = Modifier.fillMaxSize(),
         contentPadding = PaddingValues(
-            start = 24.dp,
-            end = 24.dp,
-            top = 8.dp,
-            bottom = 24.dp
+            start = dimensionResource(R.dimen.grid_content_padding),
+            end = dimensionResource(R.dimen.grid_content_padding),
+            top = dimensionResource(R.dimen.grid_content_padding_top),
+            bottom = dimensionResource(R.dimen.grid_content_padding)
         ),
-        verticalArrangement = Arrangement.spacedBy(24.dp),
-        horizontalArrangement = Arrangement.spacedBy(24.dp)
+        verticalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.grid_vertical_arrangement)),
+        horizontalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.grid_horizontal_arrangement))
     ) {
 
         items(
@@ -113,7 +122,7 @@ private fun ArtGrid(
                 val span = if (pagingData.peek(index) is ArtListUiModel.SeparatorModel) {
                     maxLineSpan
                 } else {
-                    1
+                    GRID_ITEM_SPAN
                 }
                 GridItemSpan(span)
             }
@@ -121,6 +130,7 @@ private fun ArtGrid(
             pagingData[index]?.let { uiModel ->
                 when (uiModel) {
                     is ArtListUiModel.ArtModel -> {
+                        // Art object
                         ArtListItem(
                             art = uiModel.art,
                             onItemClick = {
@@ -129,11 +139,12 @@ private fun ArtGrid(
                     }
 
                     is ArtListUiModel.SeparatorModel -> {
-                        Text(
+                        // Artist name
+                        GroupHeader(
                             text = uiModel.description,
-                            maxLines = 1,
-                            fontSize = 12.sp,
-                            textAlign = TextAlign.Left,
+                            modifier = Modifier.padding(
+                                top = dimensionResource(R.dimen.grid_header_padding_top)
+                            )
                         )
                     }
                 }
@@ -145,7 +156,10 @@ private fun ArtGrid(
                 item(span = {
                     GridItemSpan(maxLineSpan)
                 }) {
-                    LoadingUi()
+                    LoadingUi(
+                        modifier = Modifier.padding(dimensionResource(R.dimen.gris_paging_load_more_padding)),
+                        scale = 1f
+                    )
                 }
             }
 
@@ -159,11 +173,26 @@ private fun ArtGrid(
                 }) {
                     ErrorUi(
                         message = message,
-                        refresh = { pagingData.retry() })
+                        refresh = { pagingData.retry() }
+                    )
                 }
             }
 
             else -> {}
         }
     }
+}
+
+@Composable
+fun GroupHeader(
+    text: String,
+    modifier: Modifier = Modifier
+) {
+    Text(
+        modifier = modifier,
+        text = text,
+        maxLines = 1,
+        fontWeight = FontWeight.Bold,
+        textAlign = TextAlign.Left
+    )
 }

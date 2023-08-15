@@ -21,9 +21,9 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.FilterQuality
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import coil.compose.SubcomposeAsyncImage
 import coil.request.ImageRequest
 import com.ah.artfinder.R
@@ -38,8 +38,11 @@ fun ArtListItem(
     Box(
         modifier = modifier
             .clickable { onItemClick(art) }
-            .shadow(5.dp, RoundedCornerShape(10.dp))
-            .clip(RoundedCornerShape(10.dp))
+            .shadow(
+                elevation = dimensionResource(R.dimen.grid_item_elevation),
+                shape = RoundedCornerShape(dimensionResource(R.dimen.grid_item_rounded_corner))
+            )
+            .clip(RoundedCornerShape(dimensionResource(R.dimen.grid_item_rounded_corner)))
             .aspectRatio(1f)
             .background(
                 MaterialTheme.colorScheme.surface
@@ -51,7 +54,7 @@ fun ArtListItem(
                 imageUrl = art.imageUrl,
                 modifier = Modifier.weight(0.75f)
             )
-            Spacer(modifier = Modifier.padding(8.dp))
+            Spacer(modifier = Modifier.padding(dimensionResource(R.dimen.grid_item_spacer_padding)))
             ListItemTitle(
                 title = art.title,
                 modifier = Modifier.weight(0.25f)
@@ -73,7 +76,7 @@ fun ListItemImage(
         SubcomposeAsyncImage(
             model = ImageRequest.Builder(LocalContext.current)
                 .data(imageUrl)
-                .fallback(R.drawable.image_not_supported)
+                .fallback(R.drawable.image_not_available)
                 .build(),
             contentDescription = title,
             contentScale = ContentScale.Crop,
@@ -95,10 +98,12 @@ fun ListItemTitle(
     Text(
         text = title,
         maxLines = 1,
-        fontSize = 12.sp,
+        fontSize = with(LocalDensity.current) {
+            dimensionResource(R.dimen.grid_item_title_font_size).toSp()
+        },
         textAlign = TextAlign.Center,
         modifier = modifier
             .fillMaxWidth()
-            .padding(16.dp, 0.dp, 16.dp, 0.dp)
+            .padding(horizontal = dimensionResource(R.dimen.grid_item_title_horizontal_padding))
     )
 }
