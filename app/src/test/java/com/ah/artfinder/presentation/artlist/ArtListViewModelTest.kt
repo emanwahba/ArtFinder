@@ -1,7 +1,9 @@
 package com.ah.artfinder.presentation.artlist
 
 import com.ah.artfinder.domain.usecase.SearchArtSortedByArtist
+import io.mockk.MockKAnnotations
 import io.mockk.every
+import io.mockk.impl.annotations.MockK
 import io.mockk.mockk
 import io.mockk.verify
 import org.junit.Assert.assertEquals
@@ -10,13 +12,15 @@ import org.junit.Test
 
 class ArtListViewModelTest {
 
+    @MockK
     private lateinit var searchArtUseCase: SearchArtSortedByArtist
 
     private lateinit var viewModel: ArtListViewModel
 
     @Before
     fun setup() {
-        searchArtUseCase = mockk()
+        MockKAnnotations.init(this)
+
         every { searchArtUseCase.invoke(any(), any()) } returns mockk()
 
         viewModel = ArtListViewModel(searchArtUseCase)

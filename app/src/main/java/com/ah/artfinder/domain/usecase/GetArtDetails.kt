@@ -24,9 +24,9 @@ class GetArtDetails @Inject constructor(
             emit(NetworkResult.Success(artDetails))
 
         } catch (e: HttpException) {
-            emit(NetworkResult.Error(e.localizedMessage ?: "An unexpected error occurred!"))
+            emit(NetworkResult.Error(e.localizedMessage ?: e.toString()))
         } catch (e: IOException) {
-            emit(NetworkResult.Error("Couldn't reach server. Check your internet connection!"))
+            emit(NetworkResult.Error(e.message ?: e.toString()))
         }
     }
 }

@@ -29,11 +29,11 @@ class ArtPagingSourceTest {
     private val artListResponse = ArtApiResponse(
         artListEntity = listOf(
             ArtEntity(
-                id = "",
-                objectNumber = "",
-                title = "",
-                longTitle = "",
-                principalOrFirstMaker = "",
+                id = "id 1",
+                objectNumber = "object number 1",
+                title = "title",
+                longTitle = "long title",
+                principalOrFirstMaker = "artist",
                 webImage = null
             )
         )
@@ -41,11 +41,11 @@ class ArtPagingSourceTest {
     private val nextArtListResponse = ArtApiResponse(
         artListEntity = listOf(
             ArtEntity(
-                id = "",
-                objectNumber = "",
-                title = "",
-                longTitle = "",
-                principalOrFirstMaker = "",
+                id = "id 2",
+                objectNumber = "object number 2",
+                title = "title",
+                longTitle = "long title",
+                principalOrFirstMaker = "artist",
                 webImage = null
             )
         ),

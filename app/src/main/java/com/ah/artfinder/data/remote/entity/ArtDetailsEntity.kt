@@ -13,9 +13,6 @@ data class ArtDetailsEntity(
     @SerializedName("title")
     val title: String,
 
-    @SerializedName("titles")
-    val titles: List<String>,
-
     @SerializedName("location")
     val location: String?,
 
@@ -28,21 +25,6 @@ data class ArtDetailsEntity(
     @SerializedName("webImage")
     val webImage: WebImage?,
 
-    @SerializedName("label")
-    val label: Label,
-
-    @SerializedName("language")
-    val language: String,
-
     @SerializedName("principalMaker")
-    val principalMaker: String?,
-
-    @SerializedName("scLabelLine")
-    val scLabelLine: String,
-
-    @SerializedName("classification")
-    val classification: Classification,
-
-    @SerializedName("dating")
-    val dating: Dating
+    val principalMaker: String?
 )

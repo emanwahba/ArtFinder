@@ -22,7 +22,7 @@ class ArtDetailsViewModel @Inject constructor(
     private val _state = mutableStateOf(ArtDetailsState())
     val state: State<ArtDetailsState> = _state
 
-    private val _artId = mutableStateOf(String())
+    private val _artId = mutableStateOf("")
     val artId: State<String> = _artId
 
     init {
