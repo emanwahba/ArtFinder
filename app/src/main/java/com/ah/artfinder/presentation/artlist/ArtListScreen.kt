@@ -16,6 +16,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -36,12 +37,13 @@ const val GRID_ITEM_SPAN = 1
 
 @Composable
 fun ArtListScreen(
+    modifier: Modifier = Modifier.testTag("artList_screen_test_tag"),
     viewModel: ArtListViewModel = hiltViewModel(),
     navigateToArtDetailsScreen: (String) -> Unit
 ) {
     Surface(
         color = MaterialTheme.colorScheme.background,
-        modifier = Modifier.fillMaxSize()
+        modifier = modifier.fillMaxSize()
     ) {
         Column {
             Spacer(modifier = Modifier.height(dimensionResource(R.dimen.list_screen_spacer_height)))
@@ -56,6 +58,7 @@ fun ArtListScreen(
             }
 
             ArtPagingData(
+                viewModel = viewModel,
                 navigateToArtDetailsScreen = navigateToArtDetailsScreen
             )
         }

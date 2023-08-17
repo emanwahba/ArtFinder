@@ -16,13 +16,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.text.TextStyle
 import com.ah.artfinder.R
 
 @Composable
 fun SearchBar(
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier.testTag("search_bar_test_tag"),
     text: String = "",
     hint: String = "",
     onSearch: (String) -> Unit = {}
@@ -35,7 +36,9 @@ fun SearchBar(
         mutableStateOf(false)
     }
 
-    Box(modifier = modifier) {
+    Box(
+        modifier = modifier
+    ) {
         BasicTextField(
             value = text,
             onValueChange = {

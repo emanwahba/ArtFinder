@@ -7,16 +7,17 @@ plugins {
 
 android {
     namespace = "com.ah.artfinder"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "com.ah.artfinder"
         minSdk = 21
-        targetSdk = 33
+        targetSdk = 34
         versionCode = 1
         versionName = "1.0"
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = "com.ah.artfinder.HiltTestRunner"
+
         vectorDrawables {
             useSupportLibrary = true
         }
@@ -42,10 +43,16 @@ android {
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.1"
     }
+
     packaging {
-        resources {
-            excludes += "/META-INF/{AL2.0,LGPL2.1}"
-        }
+        resources.excludes.addAll(
+            listOf(
+                "META-INF/LICENSE.md",
+                "META-INF/LICENSE-notice.md",
+                "/META-INF/{AL2.0,LGPL2.1}",
+//                ... // other conflicting META-INF bits
+            )
+        )
     }
 }
 
@@ -69,9 +76,9 @@ dependencies {
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
     androidTestImplementation(platform("androidx.compose:compose-bom:2023.03.00"))
-    androidTestImplementation("androidx.compose.ui:ui-test-junit4")
+    androidTestImplementation("androidx.compose.ui:ui-test-junit4:1.5.0")
     debugImplementation("androidx.compose.ui:ui-tooling")
-    debugImplementation("androidx.compose.ui:ui-test-manifest")
+    debugImplementation("androidx.compose.ui:ui-test-manifest:1.5.0")
 
     // Retrofit
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
@@ -84,17 +91,24 @@ dependencies {
     val daggerHiltVersion = "2.47"
     implementation("com.google.dagger:hilt-android:$daggerHiltVersion")
     kapt("com.google.dagger:hilt-android-compiler:$daggerHiltVersion")
+    androidTestImplementation("com.google.dagger:hilt-android-testing:$daggerHiltVersion")
+    kaptAndroidTest("com.google.dagger:hilt-android-compiler:$daggerHiltVersion")
     implementation("androidx.hilt:hilt-navigation-compose:1.0.0")
 
     // Compose Navigation
-    implementation("androidx.navigation:navigation-compose:2.6.0")
+    val composeNavigationVersion = "2.7.0"
+    implementation("androidx.navigation:navigation-compose:$composeNavigationVersion")
+    implementation("androidx.navigation:navigation-testing:$composeNavigationVersion")
 
     // Paging
-    implementation("androidx.paging:paging-runtime-ktx:3.2.0")
-    implementation("androidx.paging:paging-compose:3.2.0")
+    val pagingVersion = "3.2.0"
+    implementation("androidx.paging:paging-runtime-ktx:$pagingVersion")
+    implementation("androidx.paging:paging-compose:$pagingVersion")
 
     // MockK
-    testImplementation("io.mockk:mockk:1.13.7")
+    val mockkVersion = "1.13.7"
+    testImplementation("io.mockk:mockk:$mockkVersion")
+    androidTestImplementation("io.mockk:mockk-android:$mockkVersion")
 
     // Coroutines test
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
